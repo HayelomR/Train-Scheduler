@@ -1,0 +1,13 @@
+body{
+	/*background-image: image/train.jpeg;*/
+}
+.jumbotron{
+	margin-top: 20px;
+	padding: 20px;
+	color:#778899;
+	background-color: #008080;
+
+}
+#train-image{
+	color:	#FFFFFF;
+}
