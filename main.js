@@ -1,4 +1,3 @@
-
 // ======= Initalize Firebase First =========
 // Initialize Firebase
 var config = {
@@ -17,7 +16,24 @@ var database = firebase.database();
   var destination = "";
   var time = 0;
   //var initalTime = 03:00;
-  var frequency = 4;
+  var frequency = 0;
+
+  database.ref().on("child_added",function(snapshot){
+    trainName = snapshot.val().trainName;
+    destination = snapshot.val().destination;
+    time = snapshot.val().time;
+    frequency = snapshot.val().frequency;
+    console.log(snapshot.val());
+    ///
+    $("#train-table").append("<tr>" +
+    "<td>" + trainName + "</td>" +
+    "<td>" + destination + "</td>" +
+    "<td>" + frequency + "</td>" +
+    "<td>" + time + "</td>" +
+
+    "</tr>");
+  });
+  
 // using click to collect data and send the information jto firebase
 $("#train-button").on("click",function(){
   //pre
@@ -28,7 +44,7 @@ $("#train-button").on("click",function(){
     time = $("#train-time").val().trim();
     frequency = $("#train-frequency").val().trim();
   // send this information to firebase
-  database.ref().set({
+  database.ref().push({
     trainName:trainName,
     destination:destination,
     time:time,
@@ -45,25 +61,26 @@ currentTime =
   $("#train-time").val("");
   $("#train-frequency").val("");
   // data used to added to the main table
-  database.ref().on("child_added",function(snapshot){
-    trainName = snapshot.val().trim();
-    destianation = snapshot.val().trim();
-    time = snapshot.val().trim();
-    frequency = snapshot.val().trim();
-  });
+  // database.ref().on("child_added",function(snapshot){
+  //   trainName = snapshot.val().trim();
+  //   destianation = snapshot.val().trim();
+  //   time = snapshot.val().trim();
+  //   frequency = snapshot.val().trim();
+  //   console.log(snapshot.val());
+  // });
+
   // lets calculate frequency
 
-  $("#train-table").append("<tr>" +
-    "<td>" + trainName + "</td>" +
-    "<td>" + destination + "</td>" +
-    "<td>" + time+ "</td>" +
-    "<td>" + frequency + "</td>" +
+  // $("#train-table").append("<tr>" +
+  //   "<td>" + trainName + "</td>" +
+  //   "<td>" + destination + "</td>" +
+  //   "<td>" + time+ "</td>" +
+  //   "<td>" + frequency + "</td>" +
 
-    "</tr>");
+  //   "</tr>");
 });
 // console.log("train.train_name");
 // $("#train_name").val("");
 // $("#train-destination").val("");
 // $("#train-time").val("");
 // $("#train-frequency").val("");
-

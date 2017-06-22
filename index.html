@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 	<title>train scheduler</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="style.css">
 <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
@@ -16,6 +17,7 @@
 
 		<div class="jumbotron jumbotron-fluid">
 			<h1 class="text-center" id="train-image">RTD TRAIN</h1>
+			<p class="text-center"> Where You Heading Bro?</p>
 		</div>
 
 		<!-- form for the train finder to look -->
@@ -52,6 +54,8 @@
 		<!-- panel for the train head and info -->
 
 		<h4>Below Is An Information For The Next Train</h4>
+		<section id="form-section">
+		<form>
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h2 class="text-center panel-title">Current Train Schedule</h2>
@@ -59,7 +63,7 @@
 		</div>
 		<div class="row">
 			<div class="col-lg-12">
-				<table class="table table-hover" id="train-table">
+				<table class="table table-hover">
 					<thead>
 						<tr>
 							<th>Train Name</th>
@@ -69,10 +73,12 @@
 							<th>Minutes Away</th>
 						</tr>
 					</thead>
-					<tbody>
-						<!-- body for the  data to be dumbed -->
+					<tbody id="train-table">
+					<!-- 	body for the  data to be dumbed -->
 					</tbody>	
-				</table>	
+				</table>
+				</form>	
+				</section>
 			</div>		
 		</div>
 	</div>	
