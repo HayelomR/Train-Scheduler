@@ -34,9 +34,7 @@ firebase.initializeApp(config);
     "<td>" + minutesAway + "</td>" +
     "</tr>");
   });
-//Determine what time is now
-var currentTime = moment().format("HHMM");
-console.log(currentTime);
+
 // using click to collect data and send the information to firebase
 $("#train-button").on("click",function(){
   //prevent from submitting
@@ -60,27 +58,29 @@ $("#train-button").on("click",function(){
   $("#train1-time").val("");
   $("#train-frequency").val("");
 // First Time (pushed back 1 year to make sure it comes before current time)
-//var train1timeConverted = moment(train1timeConverted, 'hh:mm').subtract(1, 'years');
-
+var train1timeConverted = moment(train1timeConverted, 'hh:mm').subtract(1, 'years');
+//Determine what time is now
+var currentTime = moment().format("hh:mm");
+console.log(currentTime);
 console.log(train1timeConverted);
 //differences between times
-var diffTime = moment().diff(moment(train1time), 'minutes');
+var diffTime = moment().diff(moment(train1time));
 console.log('DIFFENCE IN TIME: ' + diffTime);
 
 //time apart (remainder)
 var timeRemainder = diffTime % frequency;
-// console.log(tRemainder);
+ console.log(timeRemainder);
 
-// //minute until train
-// minutesAway = frequency - timeRemainder;
-// console.log('Minutes Until Train: ' + minutesAway);
+//minute until train
+minutesAway = frequency - timeRemainder;
+console.log('Minutes Until Train: ' + minutesAway);
 
 //Next train
-nextArrival = moment().add(minutesAway, 'minutes');
+nextArrival = moment().add(minutesAway, "minutes");
 
 //minutes away
 minutesAway = nextArrival - currentTime
 
-console.log('ARRIVAL TIME: ' + moment(nextArrival).format('HH:MM'));
+console.log("ARRIVAL TIME: " + moment(nextArrival).format("hh:mm"));
 
 });
