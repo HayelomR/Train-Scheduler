@@ -30,7 +30,7 @@ firebase.initializeApp(config);
     "<td>" + trainName + "</td>" +
     "<td>" + destination + "</td>" +
     "<td>" + frequency + "</td>" +
-    "<td>" + moment(nextArrival).format("HH:MM") + "</td>" +
+    "<td>" + moment(nextArrival).format("hh:mm") + "</td>" +
     "<td>" + minutesAway + "</td>" +
     "</tr>");
   });
@@ -42,14 +42,14 @@ $("#train-button").on("click",function(){
     // get the user input
     trainName = $("#train-name").val().trim();
     destination = $("#train-destination").val().trim();
-    time = $("#train1-time").val().trim();
+    time = moment($("#train1-time").val().trim(),"mm").format('X');
     frequency = $("#train-frequency").val().trim();
 
   // send this information to firebase
   database.ref().push({
     trainName:trainName,
     destination:destination,
-    time:time,
+    train1time:train1time,
     frequency:frequency
   })
   // lets clear the table so that you can write on it
@@ -65,22 +65,19 @@ console.log(currentTime);
 console.log(train1timeConverted);
 //differences between times
 var diffTime = moment().diff(moment(train1time));
-console.log('DIFFENCE IN TIME: ' + diffTime);
+
+console.log("DIFFENCE IN TIME: " + diffTime);
 
 //time apart (remainder)
 var timeRemainder = diffTime % frequency;
  console.log(timeRemainder);
 
 //minute until train
-minutesAway = frequency - timeRemainder;
-console.log('Minutes Until Train: ' + minutesAway);
+ minutesAway = frequency - timeRemainder;
+console.log("Minutes Until Train: " + minutesAway);
 
 //Next train
 nextArrival = moment().add(minutesAway, "minutes");
-
-//minutes away
-minutesAway = nextArrival - currentTime
-
 console.log("ARRIVAL TIME: " + moment(nextArrival).format("hh:mm"));
 
 });
