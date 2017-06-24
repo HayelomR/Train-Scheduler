@@ -37,6 +37,7 @@ $("#train-button").on("click",function(){
     train1time:train1time,
     frequency:frequency
   })
+  // lets retrive the data
 
   $("#train-frequency").val("");
    database.ref().on("child_added",function(snapshot){
@@ -67,13 +68,14 @@ console.log("Minutes Until Train: " + minutesAway);
 //Next train
 nextArrival = moment().add(minutesAway, "minutes");
 console.log("ARRIVAL TIME: " + moment(nextArrival).format("hh:mm"));
-/////////
+
 // lets clear the table so that you can write on it
   $("#train-name").val("");
   $("#train-destination").val("");
+  $("#train-frequency").val("");
   $("#train1-time").val("");
-  
  // console.log(snapshot.val());
+ //Lets append this to our table
     $("#train-table").append("<tr>" +
     "<td>" + trainName + "</td>" +
     "<td>" + destination + "</td>" +
