@@ -19,21 +19,6 @@ firebase.initializeApp(config);
   var nextArrival = 0;
   var frequency = 0;
   var train1time = 0;
-// up load our variables to the html
-  database.ref().on("child_added",function(snapshot){
-    trainName = snapshot.val().trainName;
-    destination = snapshot.val().destination;
-    frequency = snapshot.val().frequency;
-
-    // console.log(snapshot.val());
-    $("#train-table").append("<tr>" +
-    "<td>" + trainName + "</td>" +
-    "<td>" + destination + "</td>" +
-    "<td>" + frequency + "</td>" +
-    "<td>" + moment(nextArrival).format("hh:mm") + "</td>" +
-    "<td>" + minutesAway + "</td>" +
-    "</tr>");
-  });
 
 // using click to collect data and send the information to firebase
 $("#train-button").on("click",function(){
@@ -52,11 +37,14 @@ $("#train-button").on("click",function(){
     train1time:train1time,
     frequency:frequency
   })
-  // lets clear the table so that you can write on it
-  $("#train-name").val("");
-  $("#train-destination").val("");
-  $("#train1-time").val("");
+
   $("#train-frequency").val("");
+   database.ref().on("child_added",function(snapshot){
+    trainName = snapshot.val().trainName;
+    destination = snapshot.val().destination;
+    frequency = snapshot.val().frequency;
+    });
+
 // First Time (pushed back 1 year to make sure it comes before current time)
 var train1timeConverted = moment(train1timeConverted, 'hh:mm').subtract(1, 'years');
 //Determine what time is now
@@ -64,7 +52,7 @@ var currentTime = moment().format("hh:mm");
 console.log(currentTime);
 console.log(train1timeConverted);
 //differences between times
-var diffTime = moment().diff(moment(train1time));
+var diffTime = moment().diff(moment.unix(train1time),"minutes");
 
 console.log("DIFFENCE IN TIME: " + diffTime);
 
@@ -79,5 +67,20 @@ console.log("Minutes Until Train: " + minutesAway);
 //Next train
 nextArrival = moment().add(minutesAway, "minutes");
 console.log("ARRIVAL TIME: " + moment(nextArrival).format("hh:mm"));
+/////////
+// lets clear the table so that you can write on it
+  $("#train-name").val("");
+  $("#train-destination").val("");
+  $("#train1-time").val("");
+  
+ // console.log(snapshot.val());
+    $("#train-table").append("<tr>" +
+    "<td>" + trainName + "</td>" +
+    "<td>" + destination + "</td>" +
+    "<td>" + frequency + "</td>" +
+    "<td>" + moment(nextArrival).format("hh:mm") + "</td>" +
+    "<td>" + minutesAway + "</td>" +
+    "</tr>");
 
 });
+
