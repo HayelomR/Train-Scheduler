@@ -29,7 +29,6 @@ $("#train-button").on("click",function(){
     destination = $("#train-destination").val().trim();
     time = moment($("#train1-time").val().trim(),"mm").format('X');
     frequency = $("#train-frequency").val().trim();
-
   // send this information to firebase
   database.ref().push({
     trainName:trainName,
@@ -38,7 +37,6 @@ $("#train-button").on("click",function(){
     frequency:frequency
   })
   // lets retrive the data
-
   $("#train-frequency").val("");
    database.ref().on("child_added",function(snapshot){
     trainName = snapshot.val().trainName;
@@ -68,13 +66,12 @@ console.log("Minutes Until Train: " + minutesAway);
 //Next train
 nextArrival = moment().add(minutesAway, "minutes");
 console.log("ARRIVAL TIME: " + moment(nextArrival).format("hh:mm"));
-
-// lets clear the table so that you can write on it
+//clear the input when the user is hits the click button
   $("#train-name").val("");
   $("#train-destination").val("");
   $("#train-frequency").val("");
   $("#train1-time").val("");
- // console.log(snapshot.val());
+
  //Lets append this to our table
     $("#train-table").append("<tr>" +
     "<td>" + trainName + "</td>" +
