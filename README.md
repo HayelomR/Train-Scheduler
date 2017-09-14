@@ -1,3 +1,3 @@
 # Train-Scheduler
-train scheduling very challenging but a good exercise to do.
-converting time is the hardest because moment.js is difficult.
+train scheduling app that allow user when to expect their next train is. built using 
+firebase,jquery and bootstrap grid system.
